@@ -22,13 +22,14 @@ app.get('/api/hello-world', (_, res) =>
     res.json({greeting: "Hello"})
 );
 
-app.post('/api/upload', upload.single('file'), function (_req, res) {
-    try {
-        return res.status(200).json({ message: 'File uploaded successfully!' });
-    } catch (error) {
-        const message = (error instanceof Error) ? error.message : 'An error occurred';
-        return res.status(500).json({ message})
-    }
+app.post("/api/upload", upload.single("file"), function (_req, res) {
+  try {
+    return res.status(200).json({ message: "File uploaded successfully!" });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An error occurred";
+    return res.status(500).json({ message });
+  }
 });
 
 app.post('/api/multi-upload', upload.array('files'), function (_req, res) {
