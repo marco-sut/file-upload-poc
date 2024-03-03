@@ -1,10 +1,20 @@
 import express from 'express';
-import mutler from 'multer';
+import multer from 'multer';
 import { readdir, stat } from 'fs/promises';
-import {join} from 'path';
+import { join } from "path";
 
 export const app = express();
-const upload = mutler({dest: 'uploads/'});
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 app.use(express.json());
 
