@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function express(path: string) {
     return {
         name: "vite3-plugin-express",
