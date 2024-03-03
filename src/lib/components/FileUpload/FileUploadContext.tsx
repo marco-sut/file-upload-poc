@@ -8,6 +8,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useState,
 } from "react";
 import { CALL_STATE, useApi } from "../../api";
 
@@ -62,17 +63,30 @@ export const FileUploadProvider: FC<
     callStatus: uploadedFilesCallStatus,
     error: uploadedFilesError,
   } = useApi<UploadedFileResponse>(uploadedFilesListApiUrl);
+  const [addedFiles, setAddedFiles] = useState<UploadedFile[]>([]);
 
   const onFilesSelection = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
-      const files = event.target.files;
+      if (!event.target.files) return;
 
-      if (!files) return;
-
+      const files = Array.from(event.target.files);
       const formData = new FormData();
-      Array.from(files).forEach((file) => {
+
+      files.forEach((file) => {
         formData.append("files", file, file.name);
       });
+
+      // Optimistic update of the file list without calling the whole list again from the server
+      // and without waiting for the upload response
+      // this addition should be rolled back in case of failure
+      setAddedFiles(
+        addedFiles.concat(
+          files.map((file) => ({
+            name: file.name,
+            size: file.size,
+          }))
+        )
+      );
 
       await callApi({ method: "POST", body: formData });
 
@@ -84,7 +98,7 @@ export const FileUploadProvider: FC<
         onUploadError?.(error);
       }
     },
-    [callApi, callStatus, error, onUploadError, onUploadSuccess]
+    [addedFiles, callApi, callStatus, error, onUploadError, onUploadSuccess]
   );
 
   useEffect(() => {
@@ -98,7 +112,10 @@ export const FileUploadProvider: FC<
           onFilesSelection,
           inputFileRef,
           multiple,
-          uploadedFiles: uploadedFilesResponse?.files,
+          uploadedFiles: [
+            ...(uploadedFilesResponse?.files ?? []),
+            ...addedFiles,
+          ],
           uploadedFilesCallStatus,
           uploadedFilesError,
           uploadFilesCallStatus: callStatus,
@@ -109,6 +126,7 @@ export const FileUploadProvider: FC<
           inputFileRef,
           multiple,
           uploadedFilesResponse?.files,
+          addedFiles,
           uploadedFilesCallStatus,
           uploadedFilesError,
           callStatus,

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
 export type CALL_STATE = 'INITIAL' | 'LOADING' | 'SUCCESSFUL' | 'FAILED';
 
@@ -7,7 +7,7 @@ export const useApi = <T>(url: string) => {
   const [callStatus, setCallStatus] = useState<CALL_STATE>('INITIAL');
   const [error, setError] = useState<Error>();
 
-  const callApi = async ({ method, ...rest }: RequestInit = {}) => {
+  const callApi = useCallback(async ({ method, ...rest }: RequestInit = {}) => {
     setCallStatus('LOADING');
     setData(undefined);
     setError(undefined);
@@ -30,7 +30,7 @@ export const useApi = <T>(url: string) => {
       setCallStatus('FAILED');
       setError(error as Error);
     }
-  }
+  }, [url]);
 
   return { callApi, data, callStatus, error };
 }

@@ -27,13 +27,21 @@ export const FileUploadList: FC = () => {
     );
   }
 
+  if (uploadedFiles?.length === 0) {
+    return (
+      <section>
+        <h3 className="my-6">No files uploaded.</h3>
+      </section>
+    );
+  }
+
   return (
     <section>
       <h3 className="my-6">Uploaded files ({uploadedFiles?.length})</h3>
       {/* Here would be better to use a role=grid creating a proper accessible data grid */}
       <ul>
         {uploadedFiles?.length && uploadedFiles.map((file) => (
-          <li className="grid grid-cols-3 p-4 border mb-4 rounded-lg shadow-sm sm:text-xl" key={file.name}>
+          <li className="grid grid-cols-3 p-4 border mb-4 rounded-lg shadow-sm sm:text-xl hover:border-black" tabIndex={0} key={file.name}>
             <span className="col-span-2" aria-describedby="file-name">{file.name}</span>
             <span className="self-center justify-self-end sm:text-base" aria-describedby="file-size">{formatBytes(file.size)}</span>
           </li>
