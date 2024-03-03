@@ -68,6 +68,8 @@ This solution is far from perfect. Many things can be improved and can be added 
 - File download and preview.
 - Undo last uploading operation.
 - Handling properly the uploading of already existing files.
+- Improve accessibility using role=grid for the uploaded files list. 
+- Also aria-busy could be used to inform screen readers when the files list is being updated.
 - Error Boundary.
 - Storybook.
 
