@@ -5,7 +5,7 @@ import { FileUpload } from "./FileUpload";
 export const FileUploadWidget: FC = () => {
   return (
     <div>
-      <FileUpload url="/api/upload" />
+      <FileUpload url="/api/multi-upload" />
       {/* <FileUploadList /> */}
     </div>
   );

@@ -31,6 +31,15 @@ app.post('/api/upload', upload.single('file'), function (_req, res) {
     }
 });
 
+app.post('/api/multi-upload', upload.array('files'), function (_req, res) {
+	try {
+			return res.status(200).json({ message: 'Files uploaded successfully!' });
+	} catch (error) {
+			const message = (error instanceof Error) ? error.message : 'An error occurred';
+			return res.status(500).json({ message})
+	}
+});
+
 app.get('/api/files', async (_req, res) => {
     try {
         const fileNames = await readdir('uploads/');

@@ -14,7 +14,7 @@ export const FileUpload: FC<FileUploadProps> = (props: FileUploadProps) => {
   const [error, setError] = useState("")
   const id = useId()
   const element = useRef<unknown | null>(null)
-  const [file, setFile] = useState<File | undefined>()
+  const [files, setFiles] = useState<FileList | undefined>()
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (error) {
@@ -24,23 +24,26 @@ export const FileUpload: FC<FileUploadProps> = (props: FileUploadProps) => {
 
     if (event.target.files) {
       /** Access `event.target.files` at 0 index because only a single file can be selected */
-      setFile(event.target.files[0])
+      setFiles(event.target.files)
     }
   }
 
   const abortController = new AbortController()
 
   const onUpload = async () => {
-    if (!file) return
+    if (!files) return
 
     /** `document.activeElement` value will be the upload button if the user used keyboard to trigger the upload */
     element.current = document.activeElement
     setisLoading(true)
     setisSuccess(false)
 
-    const formData = new FormData()
-    formData.append('file', file, file.name);
+    const formData = new FormData();
 
+    Array.from(files).forEach((file) => {
+      formData.append('files', file, file.name);
+    });
+    
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -86,22 +89,13 @@ export const FileUpload: FC<FileUploadProps> = (props: FileUploadProps) => {
         aria-invalid={Boolean(error)}
         aria-errormessage={`error-info-${id}`}
         type="file"
+        multiple
         onChange={onChange}
       />
 
-      {file && (
-        /** <output /> behaves like `role="status"` and is read by assitive tech before `aria-describedby` regarless of DOM heirarchy */
-        /** <output /> may not be necessary if `aria-describedby` provides enough information */
-        <output>
-          name of the file: {file.name}
-          size in bytes: {file.size}
-          file type: {file.type}
-        </output>
-      )}
-
-      <p id={`file-info-${id}`}>
-        {file ? <>currently selected file is: {file.name}</> : <>no file currently selected</>}
-      </p>
+      {/* <p id={`file-info-${id}`}>
+        {files ? <>currently selected file is: {files.name}</> : <>no file currently selected</>}
+      </p> */}
 
       {error && (
         <p role="alert" id={`error-info-${id}`}>
