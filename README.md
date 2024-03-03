@@ -1,27 +1,76 @@
-# Task Boilerplate
+# File Upload - PoC
+<p align="center">
+  A proof of concept for a file uploader reusable widget.
+</p>
 
-This is a simple boilerplate for the task. You are free to use it and modify it to your needs.
+- [About](#about)
+- [Getting Started](#getting-started)
 
-## Installation
+## About
 
-```bash
+This proof of concept aims to showcase a possible approach to build a reusable file uploader widget. 
+Some features have only been sketched (e.g. loading UI, error message UI) for matter of time. I've put more focus on the big picture rather than implementation details.
+
+### What technologies have I used for this PoC?
+-	React (functional components, hooks, context)
+-	Typescript
+-	Css Modules
+-	Tailwind
+- Cypress
+
+### What does the repo look like?
+
+Here below the folder structure:
+
+```
+src/
+  assets/ -> /* static assets */
+  lib/ -> /* components & hooks library */
+    api/
+    components/
+      FileUpload
+      Loader
+      Card
+  server /* mock server */
+```
+
+## Getting Started
+
+Let's start by executing a couple of commands from the root of the project.
+
+```
 npm install
 npm run dev
 ```
 
-This will start a simple dev server with hot reload using vite and express for some mock API requests.
+OR
 
-No testing framework is provided by default. Use whatever you like and are familiar with.
+```
+yarn install
+yarn dev
+```
 
-## API
+To launch the cypress test you can run:
 
-You find the express js api under src/server. A simple file upload API is provided. You can use it and/or modify it to your needs.
+```
+npm run test
+yarn test
+```
 
-API Routes
-- POST /api/upload (multipart/form-data)
-- GET /api/files (returns a list of files)
-- GET /api/hello-world
+## Room for improvement
 
-## Styling
+This solution is far from perfect. Many things can be improved and can be added like:
 
-You can use whatever you like. The boilerplate is using tailwindcss. If you want to use something else, feel free to add it.
+- Uploading / reading files in chunks so can be easier for the backend to ingest the files and the user wouldn't feel the app is stuck in big processing task.
+- Aborting one or more file uploading.
+- Real uploading progress for each file being uploaded.
+- File deletion.
+- File download and preview.
+- Undo last uploading operation.
+- Handling properly the uploading of already existing files.
+- Error Boundary.
+- Storybook.
+
+### Browser support
+
+I've tested it on Chrome and Safari latest version, but might be working also in other browsers as well.

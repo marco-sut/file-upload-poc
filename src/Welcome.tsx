@@ -20,7 +20,7 @@ function Welcome(): ReactElement {
       <div className='container mx-auto flex justify-center'>
         <Card headerContent={
           <>
-            <FrontifyLogo className='max-w-24 sm:max-w-36' />
+            <FrontifyLogo className='w-24 sm:w-36' />
             <h2>Frontify file upload</h2>
           </>
         }>
