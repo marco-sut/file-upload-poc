@@ -32,7 +32,11 @@ app.post("/api/upload", upload.single("file"), function (_req, res) {
 
 app.post("/api/multi-upload", upload.array("files"), function (_req, res) {
   try {
-    return res.status(200).json({ message: "Files uploaded successfully!" });
+    return new Promise((resolve) => {
+      setTimeout(() => { 
+        resolve(res.status(200).json({ message: "Files uploaded successfully!" }));
+      }, 2000);
+    });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An error occurred";
@@ -51,8 +55,12 @@ app.get("/api/files", async (_req, res) => {
         size: file.size,
       });
     }
-
-    return res.status(200).json({ files });
+    return new Promise((resolve) => {
+      setTimeout(() => { 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        resolve(res.status(200).json({ files }) as any);
+      }, 2000);
+    });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An error occurred";

@@ -1,12 +1,13 @@
 import { FC } from "react";
+import { FileUploadProvider, FileUploadProviderProps } from "./FileUploadContext";
 import { FileUpload } from "./FileUpload";
-// import { FileUploadList } from "./FileUploadList";
 
-export const FileUploadWidget: FC = () => {
+export type FileUploadWidgetProps = FileUploadProviderProps;
+
+export const FileUploadWidget: FC<FileUploadWidgetProps> = (props) => {
   return (
-    <div>
-      <FileUpload url="/api/multi-upload" />
-      {/* <FileUploadList /> */}
-    </div>
+    <FileUploadProvider {...props}>
+      <FileUpload />
+    </FileUploadProvider>
   );
 };

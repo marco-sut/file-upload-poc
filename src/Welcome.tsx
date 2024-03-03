@@ -1,8 +1,14 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
 import FrontifyLogo from './assets/frontify-logo-nook-charcoal-on-offwhite-rgb-800x800.svg?react';
 import { Card, FileUploadWidget } from './lib';
 
 function Welcome(): ReactElement {
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
   return (
     <main className="relative isolate min-h-full">
       <img
@@ -18,7 +24,13 @@ function Welcome(): ReactElement {
             <h2>Frontify file upload</h2>
           </>
         }>
-          <FileUploadWidget />
+          <FileUploadWidget 
+            uploadFilesApiUrl='/api/multi-upload'
+            uploadedFilesListApiUrl='/api/files'
+            multiple 
+            onUploadSuccess={() => console.log('upload successful logged from consumer')}
+            onUploadError={() => console.log('upload error logged from consumer')}
+            inputFileRef={ref} />
         </Card>
       </div>
     </main>
