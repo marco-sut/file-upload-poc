@@ -46,7 +46,7 @@ export const FileUploadList: FC = () => {
               <a
                 className="grid grid-cols-3 p-4 border mb-4 rounded-lg shadow-sm sm:text-xl hover:border-black outline-black"
                 href={`/uploads/${file.name}`}
-                target="blank"
+                download
               >
                 <span
                   className="col-span-2"
