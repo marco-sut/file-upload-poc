@@ -37,43 +37,41 @@ export const FileUploadList: FC = () => {
   }
 
   return (
-    uploadedFiles?.length && (
-      <section>
-        <h3 className="my-6">Uploaded files ({uploadedFiles?.length})</h3>
-        <ul role="grid">
-          {uploadedFiles.map((file) => (
-            <li key={file.name} role="row">
-              <a
-                className="grid grid-cols-3 p-4 border mb-4 rounded-lg shadow-sm sm:text-xl hover:border-black outline-black"
-                href={`/uploads/${file.name}`}
-                download
+    <section>
+      <h3 className="my-6">Uploaded files ({uploadedFiles?.length})</h3>
+      <ul role="grid">
+        {uploadedFiles?.map((file) => (
+          <li key={file.name} role="row">
+            <a
+              className="grid grid-cols-3 p-4 border mb-4 rounded-lg shadow-sm sm:text-xl hover:border-black outline-black"
+              href={`/uploads/${file.name}`}
+              download
+            >
+              <span
+                className="col-span-2"
+                role="gridcell"
+                aria-describedby="file-name"
               >
-                <span
-                  className="col-span-2"
-                  role="gridcell"
-                  aria-describedby="file-name"
-                >
-                  {file.name}
-                </span>
-                <span
-                  className="self-center justify-self-end sm:text-base"
-                  role="gridcell"
-                  aria-describedby="file-size"
-                >
-                  {formatBytes(file.size)}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+                {file.name}
+              </span>
+              <span
+                className="self-center justify-self-end sm:text-base"
+                role="gridcell"
+                aria-describedby="file-size"
+              >
+                {formatBytes(file.size)}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
 
-        <p className="sr-only" id="file-name">
-          File name
-        </p>
-        <p className="sr-only" id="file-size">
-          File size
-        </p>
-      </section>
-    )
+      <p className="sr-only" id="file-name">
+        File name
+      </p>
+      <p className="sr-only" id="file-size">
+        File size
+      </p>
+    </section>
   );
 };
