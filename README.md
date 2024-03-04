@@ -69,7 +69,7 @@ yarn storybook
 This solution is far from perfect. Many things can be improved and can be added like:
 
 - Uploading / reading files in chunks so can be easier for the backend to ingest the files and the user wouldn't feel the app is stuck in big processing task.
-- Aborting one or more file uploading.
+- Aborting one or more file while uploading.
 - Real uploading progress for each file being uploaded.
 - File deletion.
 - Icon showing file type.

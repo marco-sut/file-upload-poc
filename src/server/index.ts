@@ -35,7 +35,7 @@ app.post("/api/multi-upload", upload.array("files"), function (_req, res) {
     return new Promise((resolve) => {
       setTimeout(() => { 
         resolve(res.status(200).json({ message: "Files uploaded successfully!" }));
-      }, 2000);
+      }, 1500);
     });
   } catch (error) {
     const message =
@@ -59,7 +59,7 @@ app.get("/api/files", async (_req, res) => {
       setTimeout(() => { 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         resolve(res.status(200).json({ files }) as any);
-      }, 2000);
+      }, 1500);
     });
   } catch (error) {
     const message =
