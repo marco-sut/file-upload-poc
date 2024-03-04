@@ -57,6 +57,13 @@ npm run test
 yarn test
 ```
 
+To check documentation you can run storybook:
+
+```
+npm run storybook
+yarn storybook
+```
+
 ## Room for improvement
 
 This solution is far from perfect. Many things can be improved and can be added like:
@@ -70,7 +77,6 @@ This solution is far from perfect. Many things can be improved and can be added 
 - Handling properly the uploading of already existing files.
 - Aria-busy could be used to inform screen readers when the files list is being updated.
 - Error Boundary.
-- Storybook.
 
 ### Browser support
 
