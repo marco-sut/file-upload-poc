@@ -9,8 +9,6 @@ export const useApi = <T>(url: string) => {
 
   const callApi = useCallback(async ({ method, ...rest }: RequestInit = {}) => {
     setCallStatus('LOADING');
-    setData(undefined);
-    setError(undefined);
 
     try {
       const response = await fetch(url, {

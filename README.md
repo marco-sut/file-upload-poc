@@ -65,11 +65,10 @@ This solution is far from perfect. Many things can be improved and can be added 
 - Aborting one or more file uploading.
 - Real uploading progress for each file being uploaded.
 - File deletion.
-- File download and preview.
+- Icon showing file type.
 - Undo last uploading operation.
 - Handling properly the uploading of already existing files.
-- Improve accessibility using role=grid for the uploaded files list. 
-- Also aria-busy could be used to inform screen readers when the files list is being updated.
+- Aria-busy could be used to inform screen readers when the files list is being updated.
 - Error Boundary.
 - Storybook.
 
